@@ -1,0 +1,10 @@
+# set default options for switch model
+--verbose 
+--stream-solver
+# note: use the next three lines instead of the glpk line if cplex is available
+# --solver=cplex --solver-io=nl 
+# --solver-options-string="mipgap=0.001 display=1 primalopt='' advance=2 threads=1 iisfind=1"
+# --suffixes iis 
+--solver=glpk
+# change the next line from "inputs_tiny" to "inputs" to run the full model (slow with glpk)
+--inputs-dir inputs_tiny
