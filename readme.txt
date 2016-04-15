@@ -2,7 +2,7 @@ This contains files to run SWITCH for the standard SWITCH-Hawaii scenarios.
 
 To install this repository:
 
-1. install python, git and a solver (glpk, cplex, gurobi) (see the first half of https://github.com/switch-model/switch-hawaii-studies/blob/master/README.md (everything down to "install switch") for more information.)
+1. install python, git and a solver (glpk, cplex, gurobi). See "INSTALL PYTHON AND PYOMO" and "INSTALL A SOLVER" at https://github.com/switch-model/switch-hawaii-studies/blob/master/README.md for more information. To solve the larger models in a reasonable time, it is recommended that you obtain a copy of cplex or gurobi (free for academics).
 
 3. execute the following commands in a terminal window (command prompt) to install this model and a matching copy of SWITCH:
 
