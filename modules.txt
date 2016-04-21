@@ -1,9 +1,5 @@
 # note: commented-out modules may be added via --include_modules ... 
 # in the scenario definitions.
-# also note: smooth_dispatch and save_results include capabilities that were in
-# the old rps/solve.py module but aren't yet in switch_mod or hawaii.
-# TODO: To match the outputs from the older rps model, this should use the 
-# (unfinished) smooth_dispatch module. 
 fuel_markets
 project.no_commit
 hawaii.fuel_markets_expansion
@@ -21,4 +17,5 @@ hawaii.demand_response_simple
 # hawaii.no_ev
 # hawaii.fed_subsidies
 # smooth_dispatch
+hawaii.smooth_dispatch
 hawaii.save_results
