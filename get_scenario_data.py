@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 
-import sys, os
+import sys, os, argparse
 from textwrap import dedent
 
-path_to_core = os.path.abspath(os.path.join(os.path.dirname(__file__), 'switch-hawaii-core'))
-sys.path.append(path_to_core)
-
-import scenario_data, scenarios
+import switch_mod.hawaii.scenario_data as scenario_data
 
 ###########################
 # Scenario Definitions
@@ -27,22 +24,29 @@ import scenario_data, scenarios
 # with open('scenarios.txt', 'w') as f:
 #     f.writelines(s + '\n' for s in scenario_list)
 
-scenarios.parser.add_argument('--skip_cf', action='store_true')
-scenarios.parser.add_argument('--time_sample')
-cmd_line_args = scenarios.cmd_line_args()
+parser = argparse.ArgumentParser()
+parser.add_argument('--skip-cf', action='store_true', default=False,
+    help='Skip writing variable capacity factors file (for faster execution)')
+parser.add_argument('--time-sample', default='rps_mini', 
+    help='Name of time sample to use to create data; rps_mini is the default; tiny is good for testing')
+parser.add_argument('--inputs-dir', default='inputs')
+
+cmd_line_args = parser.parse_args()
 
 # particular settings chosen for this case
 # (these will be passed as arguments when the queries are run)
 args = dict(
-    inputs_dir = cmd_line_args.get('inputs_dir', 'inputs'),     # directory to store data in
-    skip_cf = cmd_line_args['skip_cf'],     # skip writing capacity factors file if specified (for speed)
+    inputs_dir = cmd_line_args.inputs_dir,     # directory to store data in
+    skip_cf = cmd_line_args.skip_cf,     # skip writing capacity factors file if specified (for speed)
     
-    time_sample = cmd_line_args.get('time_sample', "rps_mini"),       # could be 'tiny', 'rps', 'rps_mini' or possibly 
+    time_sample = cmd_line_args.time_sample,       # could be 'tiny', 'rps', 'rps_mini' or possibly 
                                 # '2007', '2016test', 'rps_test_45', or 'main'
     load_zones = ('Oahu',),       # subset of load zones to model
     load_scen_id = "med",        # "hist"=pseudo-historical, "med"="Moved by Passion", "flat"=2015 levels
     fuel_scen_id = 'EIA_ref',      # '1'=low, '2'=high, '3'=reference, 'EIA_ref'=EIA-derived reference level
-    ev_scen_id = 2,              # 1=low, 2=high, 3=reference (omitted or None=none)
+    # Blazing a Bold Frontier, Stuck in the Middle, No Burning Desire, Moved by Passion, Full Adoption, 
+    # Business as Usual (omitted or None=none)
+    ev_scenario = 'Moved by Passion',          
     enable_must_run = 0,     # should the must_run flag be converted to 
                              # set minimum commitment for existing plants?
     exclude_technologies = ('CentralPV', 'DistPV_flat'),     # list of technologies to exclude
@@ -91,7 +95,8 @@ args.update(
 #     # not sure whether this means 5,000 cycles or hours of use, but it seems to fit with cycles.
 # )
 
-# battery data for 50 MW/300 MWh system from EPRI, 2010, "Electric Energy Storage Technology Options: 
+# battery data for 50 MW/300 MWh sodium-sulfur system from EPRI, 2010,
+# "Electric Energy Storage Technology Options: 
 # A White Paper Primer on Applications, Costs, and Benefits",
 # http://large.stanford.edu/courses/2012/ph240/doshay1/docs/EPRI.pdf
 # This has been used as the preferred battery prices since 2016-01-27
@@ -214,6 +219,9 @@ args.update(
 # data definitions for alternative scenarios
 alt_args = [
     dict(),         # base scenario
+    dict(inputs_dir='inputs_tiny', time_sample='tiny'),   # tiny scenario for testing
+    dict(inputs_dir='inputs_ev_slow', ev_scenario='Business as Usual'),
+    dict(inputs_dir='inputs_ev_full', ev_scenario='Full Adoption'),
 
     # make a copy of base data, for use in progressive hedging; 
     # use the HECO ref forecast as a starting point (it'll get changed later) 

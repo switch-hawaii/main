@@ -1,0 +1,3 @@
+--scenario-name low_bau --inputs-dir inputs_ev_slow --ev-timing bau
+--scenario-name full_bau --inputs-dir inputs_ev_full --ev-timing bau
+--scenario-name full_optimal --inputs-dir inputs_ev_full --ev-timing optimal
