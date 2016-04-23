@@ -1,9 +1,10 @@
 # note: the options specified here override defaults set in options.txt 
-# or in the module files (e.g. --biofuel-limit is 0.05 by default and --demand-response-share is 0.3)
---scenario-name no_renewables --demand-response-share 0.0 --ev-flat --include-module hawaii.no_renewables --exclude-modules hawaii.rps hawaii.hydrogen
---scenario-name 100_biofuel_0_dr --biofuel-limit 1.00 --demand-response-share 0.0 --ev-flat --exclude-module hawaii.hydrogen
---scenario-name 5_biofuel_0_dr --demand-response-share 0.0 --ev-flat --exclude-module hawaii.hydrogen
---scenario-name 5_biofuel_hydrogen_0_dr --demand-response-share 0.0 --ev-flat
---scenario-name 5_biofuel_hydrogen_30_dr
---scenario-name 100_biofuel_30_dr --biofuel-limit 1.00 --exclude-module hawaii.hydrogen
---scenario-name 5_biofuel_30_dr --exclude-module hawaii.hydrogen
+# or in the module files. These are the defaults in the modules themselves:
+# --biofuel-limit 0.05 --demand-response-share 0.3
+--scenario-name no_renewables --demand-response-share 0.0 --ev-timing flat --include-module hawaii.no_renewables --exclude-modules hawaii.rps hawaii.hydrogen
+--scenario-name 100_biofuel_0_dr --biofuel-limit 1.00 --demand-response-share 0.0 --ev-timing flat --exclude-module hawaii.hydrogen
+--scenario-name 5_biofuel_0_dr --demand-response-share 0.0 --ev-timing flat --exclude-module hawaii.hydrogen
+--scenario-name 5_biofuel_hydrogen_0_dr --demand-response-share 0.0 --ev-timing flat
+--scenario-name 5_biofuel_hydrogen_30_dr --ev-timing optimal
+--scenario-name 100_biofuel_30_dr --biofuel-limit 1.00 --exclude-module hawaii.hydrogen --ev-timing optimal
+--scenario-name 5_biofuel_30_dr --exclude-module hawaii.hydrogen --ev-timing optimal

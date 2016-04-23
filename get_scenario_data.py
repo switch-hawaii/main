@@ -44,9 +44,9 @@ args = dict(
     load_zones = ('Oahu',),       # subset of load zones to model
     load_scen_id = "med",        # "hist"=pseudo-historical, "med"="Moved by Passion", "flat"=2015 levels
     fuel_scen_id = 'EIA_ref',      # '1'=low, '2'=high, '3'=reference, 'EIA_ref'=EIA-derived reference level
-    # Blazing a Bold Frontier, Stuck in the Middle, No Burning Desire, Moved by Passion, Full Adoption, 
-    # Business as Usual (omitted or None=none)
-    ev_scenario = 'Moved by Passion',          
+    # Blazing a Bold Frontier, Stuck in the Middle, No Burning Desire, Full Adoption, 
+    # Business as Usual, (omitted or None=none)
+    ev_scenario = 'Blazing a Bold Frontier',          
     enable_must_run = 0,     # should the must_run flag be converted to 
                              # set minimum commitment for existing plants?
     exclude_technologies = ('CentralPV', 'DistPV_flat'),     # list of technologies to exclude
