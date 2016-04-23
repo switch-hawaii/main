@@ -16,6 +16,5 @@ hawaii.demand_response_simple
 # hawaii.no_central_pv
 # hawaii.no_ev
 # hawaii.fed_subsidies
-# smooth_dispatch
 hawaii.smooth_dispatch
 hawaii.save_results
