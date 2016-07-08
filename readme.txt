@@ -8,7 +8,8 @@ To install this repository:
 
 cd <location to store model>
 git clone --recursive https://github.com/switch-hawaii/main.git
-cd main/switch
+cd main
+cd switch
 python setup.py develop
 cd ..
 
@@ -23,11 +24,11 @@ switch solve-scenarios
 
 You can add --help to these commands to see more options.
 
-The "switch solve" command solves the default scenario, as defined by settings in options.txt, plus any additional settings you specify on the command line. Normally this will load the modules specified in modules.txt, but you can override that by specifying a --module_list flag in options.txt or on the command line. 
+The "switch solve" command solves the default scenario, as defined by settings in options.txt, plus any additional settings you specify on the command line. Normally this will load the modules specified in modules.txt, but you can override that by specifying a --module-list flag in options.txt or on the command line. 
 
-The "switch solve-scenarios" command solves all scenarios listed in scenarios.txt. This uses settings specified in options.txt, plus options specified in the --scenario_list file (usually scenarios.txt), plus settings specified on the command line. Settings specified on the command line take precedence over those specified in the scenarios file, and both of those take precedence over options.txt.
+The "switch solve-scenarios" command solves all scenarios listed in scenarios.txt. This uses settings specified in options.txt, plus options specified in the --scenario-list file (usually scenarios.txt), plus settings specified on the command line. Settings specified on the command line take precedence over those specified in the scenarios file, and both of those take precedence over options.txt.
 
-After the model runs, results will be written in text files (with extension .tsv) in the outputs/ directory.
+After the model runs, results will be written in text files (with extension .tsv) in the "outputs" directory.
 
 5. To reconfigure the model, you can edit options.txt, modules.txt and scenarios.txt. If you want to add new constraints or technologies to the model, you should create new python modules in the local directory and then add their names to modules.txt. These modules should define some or all of the same callback functions as the modules inside switch/switch_mod (e.g., define_arguments(), define_components(), load_data(), post_solve()).
 
