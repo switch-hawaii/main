@@ -22,18 +22,16 @@ Note that the Anaconda distribution can be installed without administrator right
 
 INSTALL A SOLVER
 
-For testing purposes, you can use glpk or cbc. These can be installed as follows:
+For testing purposes, you can use the open-source glpk solver. This can be installed as follows:
 
 - Open Terminal.app (OS X) or an Anaconda command prompt (Start -> Anaconda -> Anaconda Prompt)
 - Type this command and then press Enter or return:
 
 conda install -c conda-forge glpk
 
-Follow the prompts to install glpk. If you are using Linux or OS X, you could also install the cbc solver via
+Follow the prompts to install glpk.
 
-conda install -c conda-forge coincbc
-
-If you want to solve larger models, you will need to install the cplex or gurobi solvers, which are an order of magnitude faster than glpk or cbc. Both of these have free trials available, and are free long-term for academics. You can install this now or later, once you are ready to solve the larger models. More information on these solvers can be found at the following links:
+If you want to solve larger models, you will need to install the cplex or gurobi solvers, which are an order of magnitude faster than glpk. Both of these have free trials available, and are free long-term for academics. You can install one of these now or later. More information on these solvers can be found at the following links:
 
 - cplex: https://www.ibm.com/developerworks/community/blogs/jfp/entry/free_cplex_trials?lang=en
 - gurobi: http://www.gurobi.com/downloads/download-center
