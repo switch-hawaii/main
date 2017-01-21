@@ -44,7 +44,7 @@ Open a Terminal window or Anaconda command prompt, as discussed in the previous 
 
 conda install git
 
-INSTALL PYTHON CODE FOR SWITCH AND DEPENDENCIES
+INSTALL SWITCH-HAWAII DATA AND SWITCH MODEL CODE
 
 Open a Terminal window or Anaconda command prompt. Then use the 'cd' and 'mkdir' commands to create and/or enter the  directory where you would like to store the SWITCH-Hawaii model data. Once you are in that directory, run the following commands (don't type the comments that start with '#'):
 
@@ -85,3 +85,14 @@ RECONFIGURE THE MODEL
 To reconfigure the model, you can edit options.txt, modules.txt and scenarios.txt. If you want to add new constraints or technologies to the model, you should create new python modules in the local directory and then add their names to modules.txt. These modules should define some or all of the same callback functions as the modules inside switch/switch_mod (e.g., define_arguments(), define_components(), load_data(), post_solve()).
 
 You can also inspect or change any of the model's input data by editing the *.tab files in the inputs* directories.
+
+UPDATE MODEL TO LATEST VERSION
+
+You can pull the latest version of the SWITCH-Hawaii data and SWITCH model code from github.com at any time by launching a Terminal window or Anaconda prompt, then cd'ing into the 'main' directory (the same place you run the model from) and running these commands:
+
+git pull
+git submodule update
+
+The first command will attempt to merge your local changes with changes in the main repository. If there are any conflicts, you can follow the instructions given by the git command to resolve them.
+
+Alternatively, you could rename your 'main' directory to something else (like 'main_backup') and then repeat the instructions in the 'Install SWITCH-Hawaii Data and SWITCH Model Code' section.
