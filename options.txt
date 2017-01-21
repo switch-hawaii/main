@@ -9,16 +9,17 @@
 # note: we have to use a pretty wide mipgap (1%) to get solutions in reasonable time
 # with discrete unit-commitment; using mipthreads=4 might also help
 # (could also specify timelimit=7200 to stop after two hours)
-#--solver=cplexamp
-#--solver-options-string="mipgap=0.01 display=1 mipdisplay=2 threads=1"
+--solver=cplexamp
+--solver-options-string="mipgap=0.01 display=1 mipdisplay=2 threads=1"
 
-# 'inputs' has 12 days per period and 24 hours per day, and takes too long to solve
-# 'inputs_2_2' has 6 days per period and 12 hours per day, and solves in 15-20
-# minutes if discrete unit commitment is not used
---inputs-dir inputs_2_2
+# 'inputs' has 6 days per period and 12 hours per day (12 days in 2045)
+# It solves in 15-20 minutes with cplex without discrete unit commitment, 
+# or about an hour with discrete unit commitment
+--inputs-dir inputs
 
 # uncomment the next line to use the glpk solver (overrides earlier setting)
 # --solver=glpk --solver-options-string=""
+
 # uncomment the next line to run a mini, fast version of the model
 # --inputs-dir inputs_tiny
 
