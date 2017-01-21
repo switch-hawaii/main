@@ -1,13 +1,32 @@
 # set default options for switch model
+
+# control logging and reporting
 --verbose 
 --stream-solver
-# uncomment the next three lines to use the cplex solver
---solver=cplex --solver-io=nl 
---solver-options-string="mipgap=0.001 display=1 primalopt='' advance=2 threads=1 iisfind=1"
---suffixes iis 
-# uncomment the next line to use the glpk solver
-# --solver=glpk
+--sorted-output
+
+# solver options
+# note: we have to use a pretty wide mipgap (1%) to get solutions in reasonable time
+# with discrete unit-commitment; using mipthreads=4 might also help
+# (could also specify timelimit=7200 to stop after two hours)
+#--solver=cplexamp
+#--solver-options-string="mipgap=0.01 display=1 mipdisplay=2 threads=1"
+
+# 'inputs' has 12 days per period and 24 hours per day, and takes too long to solve
+# 'inputs_2_2' has 6 days per period and 12 hours per day, and solves in 15-20
+# minutes if discrete unit commitment is not used
+--inputs-dir inputs_2_2
+
+# uncomment the next line to use the glpk solver (overrides earlier setting)
+# --solver=glpk --solver-options-string=""
 # uncomment the next line to run a mini, fast version of the model
---inputs-dir inputs_tiny
-# uncomment the next line to run the full model (slow with glpk)
-# --inputs-dir inputs
+# --inputs-dir inputs_tiny
+
+# use locked-in capacity additions from PSIP
+# --psip-relax
+
+# use the relaxed-split-commit method of RPS allocation (fairly fast and accurate)
+--rps-allocation relaxed_split_commit
+
+# use a relatively low amount of demand response
+--demand-response-share 0.10

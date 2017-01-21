@@ -1,0 +1,16 @@
+generation_technology	g_dbid	g_unit_size	g_max_age	g_scheduled_outage_rate	g_forced_outage_rate	g_is_variable	g_is_baseload	g_is_flexible_baseload	g_is_cogen	g_competes_for_space	g_non_cycling	g_variable_o_m	g_energy_source	g_full_load_heat_rate
+AES	AES	185.0	61	0.0	0	0	0	0	0	0	1	2.0	multiple	.
+Airport_DSG	Airport_DSG	8.0	61	0.0	0	0	0	0	0	0	0	37.46	multiple	.
+CC_152	CC_152	150.586	30	0.05	0	0	0	0	0	0	0	4.49	multiple	.
+CIP_CT	CIP_CT	113.0	61	0.0	0	0	0	0	0	0	0	40.76	multiple	.
+CentralTrackingPV	CentralTrackingPV	.	25	0.0	0	1	0	0	0	0	0	0.0	SUN	.
+DistPV	DistPV	.	25	0.0	0	1	0	0	0	0	0	0.0	SUN	.
+H-Power	H-Power	73.0	61	0.413698630137	0	0	1	0	1	0	1	18.0	MSW	.
+IC_Barge	IC_Barge	16.786392	30	0.02	0	0	0	0	0	0	0	20.96	multiple	.
+IC_MCBH	IC_MCBH	9.16386	30	0.02	0	0	0	0	0	0	0	20.96	multiple	.
+IC_Schofield	IC_Schofield	9.16386	30	0.02	0	0	0	0	0	0	0	20.96	multiple	.
+Kalaeloa_CC1	Kalaeloa_CC1	90.0	61	0.0	0	0	0	0	0	0	1	6.0	multiple	.
+Kalaeloa_CC2	Kalaeloa_CC2	90.0	61	0.0	0	0	0	0	0	0	0	6.0	multiple	.
+Kalaeloa_CC3	Kalaeloa_CC3	28.0	61	0.0	0	0	0	0	0	0	0	6.0	multiple	.
+OffshoreWind	OffshoreWind	.	25	0.0	0	1	0	0	0	0	0	0.0	WND	.
+OnshoreWind	OnshoreWind	.	25	0.0	0	1	0	0	0	0	0	0.0	WND	.

@@ -1,0 +1,10 @@
+set G_MULTI_FUELS[IC_Schofield] := Diesel Biodiesel LNG LSFO ;
+set G_MULTI_FUELS[CIP_CT] := LNG Biodiesel Diesel ;
+set G_MULTI_FUELS[IC_MCBH] := LNG LSFO Diesel Biodiesel ;
+set G_MULTI_FUELS[Kalaeloa_CC2] := LNG LSFO Diesel Biodiesel ;
+set G_MULTI_FUELS[AES] := Biodiesel Diesel Coal LSFO Pellet-Biomass LNG ;
+set G_MULTI_FUELS[CC_152] := LNG LSFO Diesel Biodiesel ;
+set G_MULTI_FUELS[IC_Barge] := LNG LSFO Diesel Biodiesel ;
+set G_MULTI_FUELS[Airport_DSG] := Biodiesel Diesel LNG ;
+set G_MULTI_FUELS[Kalaeloa_CC1] := Diesel Biodiesel LSFO LNG ;
+set G_MULTI_FUELS[Kalaeloa_CC3] := LSFO LNG Biodiesel Diesel ;

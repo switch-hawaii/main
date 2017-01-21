@@ -1,0 +1,2 @@
+LOAD_ZONE	PERIOD	ev_share	ice_miles_per_gallon	ev_miles_per_kwh	ev_extra_cost_per_vehicle_year	n_all_vehicles	vmt_per_vehicle
+Oahu	2045	0.546119154621	50.0	4.0	200.0	816908.0	8706.0

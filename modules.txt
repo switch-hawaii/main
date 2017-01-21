@@ -1,20 +1,26 @@
-# note: commented-out modules may be added via --include_modules ... 
+# note: commented-out modules may be added via --include-modules ... 
 # in the scenario definitions.
+switch_mod
 fuel_markets
-project.no_commit
+project.discrete_build
+project.unitcommit
+# The next module gives somewhat more accurate results, but slows down the 
+# solver, so it's best to use for final results rather than experimenting.
+# (it can be added ad-hoc by specifying 
+# '--include-modules project.unitcommit.discrete' on the command line)
+# project.unitcommit.discrete
+hawaii.reserves
 hawaii.fuel_markets_expansion
 hawaii.switch_patch
+# hawaii.psip hasn't been updated for the 2016-12-23 psip yet
+# hawaii.psip
 hawaii.rps
-hawaii.emission_rules
+hawaii.kalaeloa
+hawaii.lng_conversion
 hawaii.ev
 hawaii.pumped_hydro
-hawaii.batteries
+hawaii.batteries_fixed_calendar_life
 hawaii.hydrogen
 hawaii.demand_response_simple
-# hawaii.no_renewables
-# hawaii.no_wind
-# hawaii.no_central_pv
-# hawaii.no_ev
-# hawaii.fed_subsidies
 hawaii.smooth_dispatch
 hawaii.save_results
