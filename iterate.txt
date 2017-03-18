@@ -1,1 +1,1 @@
-hawaii.smooth_dispatch
+switch_mod.hawaii.smooth_dispatch
