@@ -52,7 +52,7 @@ git clone --recursive https://github.com/switch-hawaii/main.git
 # install the SWITCH model code and required Python packages
 cd main
 cd switch
-python setup.py develop
+pip install --editable .
 cd ..
 (this will leave you in the "main" directory, which is where you should be to run the model)
 
