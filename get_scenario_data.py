@@ -19,7 +19,7 @@ scenario_list = [
     '--scenario-name no_hydrogen_no_dr --exclude-module hawaii.hydrogen --demand-response-share 0.0',
     '--scenario-name no_dr --demand-response-share 0.0',
     '--scenario-name dr_30 --demand-response-share 0.3',
-    '--scenario-name dr_30_future_hydrogen --demand-response-share 0.3 --inputs-dir future_hydrogen',
+    '--scenario-name dr_30_future_hydrogen --demand-response-share 0.3 --inputs-dir inputs_future_hydrogen',
 ]
 
 print "Writing scenarios.txt"
