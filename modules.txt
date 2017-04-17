@@ -1,26 +1,37 @@
 # note: commented-out modules may be added via --include-modules ... 
 # in the scenario definitions.
+
+### begin core modules ###
 switch_mod
-fuel_markets
-project.discrete_build
-project.unitcommit
+switch_mod.timescales
+switch_mod.financials
+switch_mod.balancing.load_zones
+switch_mod.energy_sources.properties
+switch_mod.generators.core.build
+switch_mod.generators.core.dispatch
+switch_mod.reporting
+### end core modules ###'
+switch_mod.energy_sources.fuel_costs.markets
+switch_mod.generators.core.proj_discrete_build
+switch_mod.generators.core.commit.operate
+switch_mod.generators.core.commit.fuel_use
 # The next module gives somewhat more accurate results, but slows down the 
 # solver, so it's best to use for final results rather than experimenting.
 # (it can be added ad-hoc by specifying 
-# '--include-modules project.unitcommit.discrete' on the command line)
-# project.unitcommit.discrete
-hawaii.reserves
-hawaii.fuel_markets_expansion
-hawaii.switch_patch
-# hawaii.psip hasn't been updated for the 2016-12-23 psip yet
-# hawaii.psip
-hawaii.rps
-hawaii.kalaeloa
-hawaii.lng_conversion
-hawaii.ev
-hawaii.pumped_hydro
-hawaii.batteries_fixed_calendar_life
-hawaii.hydrogen
-hawaii.demand_response_simple
-hawaii.smooth_dispatch
-hawaii.save_results
+# "--include-modules switch_mod.generators.core.commit.discrete" on the command line)
+# switch_mod.generators.core.commit.discrete
+switch_mod.hawaii.reserves
+switch_mod.hawaii.fuel_markets_expansion
+switch_mod.hawaii.switch_patch
+# switch_mod.hawaii.psip hasn't been updated for the 2016-12-23 psip yet
+# switch_mod.hawaii.psip
+switch_mod.hawaii.rps
+switch_mod.hawaii.kalaeloa
+switch_mod.hawaii.lng_conversion
+switch_mod.hawaii.ev
+switch_mod.hawaii.pumped_hydro
+switch_mod.hawaii.batteries_fixed_calendar_life
+switch_mod.hawaii.hydrogen
+switch_mod.hawaii.demand_response_simple
+switch_mod.hawaii.smooth_dispatch
+switch_mod.hawaii.save_results
