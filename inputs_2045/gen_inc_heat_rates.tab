@@ -1,4 +1,4 @@
-project	power_start_mw	power_end_mw	incremental_heat_rate_mbtu_per_mwhr	fuel_use_rate_mmbtu_per_h
+GENERATION_PROJECT	power_start_mw	power_end_mw	incremental_heat_rate_mbtu_per_mwhr	fuel_use_rate_mmbtu_per_h
 Oahu_AES	67.0	.	.	1284.7
 Oahu_AES	67.0	96.5	15.805	.
 Oahu_AES	96.5	126.0	16.106	.

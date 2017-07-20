@@ -3,7 +3,7 @@
 import sys, os, argparse
 from textwrap import dedent
 
-import switch_mod.hawaii.scenario_data as scenario_data
+import switch_model.hawaii.scenario_data as scenario_data
 
 ###########################
 # Scenario Definitions

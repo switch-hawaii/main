@@ -26,8 +26,14 @@
 # use locked-in capacity additions from PSIP
 # --psip-relax
 
+# don't allow LNG conversion, same as PSIP 2016-12-23
+--force-lng-tier none
+
 # use the relaxed-split-commit method of RPS allocation (fairly fast and accurate)
 --rps-allocation relaxed_split_commit
 
 # use a relatively low amount of demand response
 --demand-response-share 0.10
+
+# smooth the dispatch schedule
+# --include-module switch_model.hawaii.smooth_dispatch --iterate-list iterate_smooth.txt
