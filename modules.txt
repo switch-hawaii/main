@@ -20,11 +20,11 @@ switch_model.generators.core.commit.fuel_use
 # (it can be added ad-hoc by specifying 
 # "--include-modules switch_model.generators.core.commit.discrete" on the command line)
 # switch_model.generators.core.commit.discrete
+# next module makes sure the model is always feasible, to help identify tough hours 
+switch_model.hawaii.unserved_load
 switch_model.hawaii.reserves
 switch_model.hawaii.fuel_markets_expansion
 switch_model.hawaii.switch_patch
-# switch_model.hawaii.psip hasn't been updated for the 2016-12-23 psip yet
-# switch_model.hawaii.psip
 switch_model.hawaii.rps
 switch_model.hawaii.kalaeloa
 switch_model.hawaii.lng_conversion
@@ -33,4 +33,5 @@ switch_model.hawaii.pumped_hydro
 switch_model.hawaii.batteries_fixed_calendar_life
 switch_model.hawaii.hydrogen
 switch_model.hawaii.demand_response_simple
+switch_model.hawaii.psip_2016_12
 switch_model.hawaii.save_results

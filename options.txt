@@ -6,11 +6,15 @@
 --sorted-output
 
 # solver options
-# note: we have to use a pretty wide mipgap (1%) to get solutions in reasonable time
+# note: we have to use a pretty wide mipgap (0.01=1%) to get solutions in reasonable time
 # with discrete unit-commitment; using mipthreads=4 might also help
 # (could also specify timelimit=7200 to stop after two hours)
 --solver=cplexamp
---solver-options-string="mipgap=0.01 display=1 mipdisplay=2 threads=1"
+--solver-options-string="mipgap=0.01 mipemphasis=4 nodefile=3 display=1 mipdisplay=2 threads=1 iisfind=1"
+#--solver-options-string="display=1 mipdisplay=1 threads=1 iisfind=1"
+--suffixes iis
+# --solver=cplex --solver-io=nl
+# --solver-options-string="display=1 mipdisplay=1 iisfind=1 threads=1"
 
 # 'inputs' has 6 days per period and 12 hours per day (12 days in 2045)
 # It solves in 15-20 minutes with cplex without discrete unit commitment, 
@@ -23,8 +27,8 @@
 # uncomment the next line to run a mini, fast version of the model
 # --inputs-dir inputs_tiny
 
-# use locked-in capacity additions from PSIP
-# --psip-relax
+# use (only) locked-in capacity additions from PSIP
+--psip-relax
 
 # don't allow LNG conversion, same as PSIP 2016-12-23
 --force-lng-tier none
@@ -34,6 +38,10 @@
 
 # use a relatively low amount of demand response
 --demand-response-share 0.10
+
+# use a fairly low unserved load penalty, so model will generally try to avoid it,
+# but cost estimate won't be totally skewed if it misses a little (for PSIP)
+--unserved-load-penalty 1000
 
 # smooth the dispatch schedule
 # --include-module switch_model.hawaii.smooth_dispatch --iterate-list iterate_smooth.txt

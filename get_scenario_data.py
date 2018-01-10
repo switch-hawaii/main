@@ -49,11 +49,12 @@ args = dict(
     # "hist"=pseudo-historical, "med"="Moved by Passion", "flat"=2015 levels, "PSIP_2016_04"=PSIP 4/16
     load_scen_id = "PSIP_2016_12", 
     # '1'=low, '2'=high, '3'=reference, 'EIA_ref'=EIA-derived reference level, 'hedged'=2020-2030 prices from Hawaii Gas
-    fuel_scen_id='unhedged_2016_11_22',
+    fuel_scen_id='unhedged_2016_11_22',  
+    # note: 'unhedged_2016_11_22' is basically the same as 'PSIP_2016_09', but derived directly from EIA and includes various LNG options
     # Blazing a Bold Frontier, Stuck in the Middle, No Burning Desire, Full Adoption, 
     # Business as Usual, (omitted or None=none)
     cap_cost_scen_id='psip_1609',
-    ev_scenario = 'PSIP 2016-12',   
+    ev_scenario = 'PSIP 2016-12',
     # should the must_run flag be converted to set minimum commitment for existing plants?
     enable_must_run = 0,     
     # list of technologies to exclude (currently CentralFixedPV, because we don't have the logic
@@ -66,15 +67,25 @@ args = dict(
     inflation_rate = 0.025,  
 )
 
-# battery data from 2016-04-01 PSIP report (pp. J-82 - J-83)
-# this was used for main model runs from 2016-05-01 onward
+# battery data from 2016-12-23 PSIP report (pp. J-87 - J-88)
+# note: we use the 4h battery to compare to the PSIP, even though the 6h battery is probably a better choice
+# this was used for main model runs from 2017-07-20 onward
 # TODO: store this in the back-end database
-psip_nominal_battery_cost_per_kwh = [
-    530, 493, 454, 421, 
-    391, 371, 353, 339, 326, 316, 306, 298, 291, 285, 
-    280, 275, 271, 268, 264, 262, 259, 257, 255, 253, 
-    252, 250, 249, 248, 247, 246
+psip_nominal_battery_cost_per_kwh = [  # years 2016-2045
+    660, 615, 565, 524,
+    487, 461, 440, 422, 406, 393, 382, 372, 363, 355, 
+    349, 343, 338, 333, 329, 326, 323, 320, 317, 315, 
+    313, 312, 310, 309, 307, 306, 
 ]
+# below is for 6h batteries, from 2016-12-23 PSIP report (pp. J-89 - J-90)
+# these are the same as in the 2016-04-01 PSIP app. J, 
+# which were used for the main model runs from 2017-05 forward
+# psip_nominal_battery_cost_per_kwh = [  # years 2016-2045530
+#     530, 493, 454, 421,
+#     391, 371, 353, 339, 326, 316, 306, 298, 291, 285,
+#     280, 275, 271, 268, 264, 262, 259, 257, 255, 253,
+#     252, 250, 249, 248, 247, 246
+# ]
 psip_battery_years = range(2016, 2045+1)
 psip_battery_cost_per_mwh = [
     1000.0 * nom_cost * 1.018**(args["base_financial_year"] - year)
@@ -88,8 +99,8 @@ args.update(
     battery_n_years=15,
     # battery_n_cycles=365*15,
     battery_max_discharge=1.0,
-    battery_min_discharge_time=6,
-    battery_efficiency=0.88,
+    battery_min_discharge_time=4,  # 6 for 6h battery
+    battery_efficiency=0.88,  # 80% for 6h in 2016-12 report, but 88% for 6h in 2016-04 report?
 )
 
 # electrolyzer data from centralized current electrolyzer scenario version 3.1 in 
