@@ -9,8 +9,8 @@
 # note: we have to use a pretty wide mipgap (0.01=1%) to get solutions in reasonable time
 # with discrete unit-commitment; using mipthreads=4 might also help
 # (could also specify timelimit=7200 to stop after two hours)
---solver=cplexamp
---solver-options-string="mipgap=0.01 mipemphasis=4 nodefile=3 display=1 mipdisplay=2 threads=1 iisfind=1"
+#--solver=cplexamp
+#--solver-options-string="mipgap=0.01 mipemphasis=4 nodefile=3 display=1 mipdisplay=2 threads=1 iisfind=1"
 #--solver-options-string="display=1 mipdisplay=1 threads=1 iisfind=1"
 --suffixes iis
 # --solver=cplex --solver-io=nl
@@ -22,10 +22,10 @@
 --inputs-dir inputs
 
 # uncomment the next line to use the glpk solver (overrides earlier setting)
-# --solver=glpk --solver-options-string=""
+--solver=glpk --solver-options-string=""
 
 # uncomment the next line to run a mini, fast version of the model
-# --inputs-dir inputs_tiny
+--inputs-dir inputs_tiny
 
 # use (only) locked-in capacity additions from PSIP
 --psip-relax

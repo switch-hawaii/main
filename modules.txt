@@ -12,7 +12,7 @@ switch_model.generators.core.dispatch
 switch_model.reporting
 ### end core modules ###'
 switch_model.energy_sources.fuel_costs.markets
-switch_model.generators.core.proj_discrete_build
+switch_model.generators.core.gen_discrete_build
 switch_model.generators.core.commit.operate
 switch_model.generators.core.commit.fuel_use
 # The next module gives somewhat more accurate results, but slows down the 
