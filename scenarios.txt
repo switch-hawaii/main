@@ -1,6 +1,6 @@
 # note: the options specified here override defaults set in options.txt
---scenario-name base
---scenario-name no_hydrogen_no_dr --exclude-module hawaii.hydrogen --demand-response-share 0.0
---scenario-name no_dr --demand-response-share 0.0
---scenario-name dr_30 --demand-response-share 0.3
+--scenario-name base --inputs-dir inputs
+--scenario-name no_hydrogen_no_dr --no-hydrogen --demand-response-share 0.0 --inputs-dir inputs
+--scenario-name no_dr --demand-response-share 0.0 --inputs-dir inputs
+--scenario-name dr_30 --demand-response-share 0.3 --inputs-dir inputs
 --scenario-name dr_30_future_hydrogen --demand-response-share 0.3 --inputs-dir inputs_future_hydrogen

@@ -10,15 +10,15 @@ import switch_model.hawaii.scenario_data as scenario_data
 
 # definitions of standard scenarios (may also specify inputs_subdir to read in alternative data)
 # TODO: find a way to define the base scenario here, then apply the others as changes to it
-# Maybe allow each to start with --inherit-scenario <parent>? (to one level) 
+# Maybe allow each to start with --inherit-scenario <parent>? (to one level)
 # (--scenario does this already)
 
 scenario_list = [
     '# note: the options specified here override defaults set in options.txt',
-    '--scenario-name base',  # use standard settings from options.txt
-    '--scenario-name no_hydrogen_no_dr --exclude-module hawaii.hydrogen --demand-response-share 0.0',
-    '--scenario-name no_dr --demand-response-share 0.0',
-    '--scenario-name dr_30 --demand-response-share 0.3',
+    '--scenario-name base --inputs-dir inputs',  # use standard settings from options.txt
+    '--scenario-name no_hydrogen_no_dr --no-hydrogen --demand-response-share 0.0 --inputs-dir inputs',
+    '--scenario-name no_dr --demand-response-share 0.0 --inputs-dir inputs',
+    '--scenario-name dr_30 --demand-response-share 0.3 --inputs-dir inputs',
     '--scenario-name dr_30_future_hydrogen --demand-response-share 0.3 --inputs-dir inputs_future_hydrogen',
 ]
 
@@ -38,33 +38,35 @@ args = dict(
     # directory to store data in
     inputs_dir = 'inputs',
     # skip writing capacity factors file if specified (for speed)
-    skip_cf = cmd_line_args.skip_cf,    
+    skip_cf = cmd_line_args.skip_cf,
     # use heat rate curves for all thermal plants
     use_incremental_heat_rates=True,
     # could be 'tiny', 'rps', 'rps_mini' or possibly '2007', '2016test', 'rps_test_45', or 'main'
     # '2020_2025' is two 5-year periods, with 24 days per period, starting in 2020 and 2025
     time_sample = "PSIP_2016_12_23_2_2",
     # subset of load zones to model
-    load_zones = ('Oahu',),       
+    load_zones = ('Oahu',),
     # "hist"=pseudo-historical, "med"="Moved by Passion", "flat"=2015 levels, "PSIP_2016_04"=PSIP 4/16
-    load_scen_id = "PSIP_2016_12", 
+    load_scen_id = "PSIP_2016_12",
     # '1'=low, '2'=high, '3'=reference, 'EIA_ref'=EIA-derived reference level, 'hedged'=2020-2030 prices from Hawaii Gas
-    fuel_scen_id='unhedged_2016_11_22',  
+    fuel_scen_id='unhedged_2016_11_22',
     # note: 'unhedged_2016_11_22' is basically the same as 'PSIP_2016_09', but derived directly from EIA and includes various LNG options
-    # Blazing a Bold Frontier, Stuck in the Middle, No Burning Desire, Full Adoption, 
+    # Blazing a Bold Frontier, Stuck in the Middle, No Burning Desire, Full Adoption,
     # Business as Usual, (omitted or None=none)
-    cap_cost_scen_id='psip_1609',
+    tech_scen_id='PSIP_2016_12',
     ev_scenario = 'PSIP 2016-12',
     # should the must_run flag be converted to set minimum commitment for existing plants?
-    enable_must_run = 0,     
+    enable_must_run = 0,
     # list of technologies to exclude (currently CentralFixedPV, because we don't have the logic
     # in place yet to choose between CentralFixedPV and CentralTrackingPV at each site)
-    exclude_technologies = ('CentralFixedPV',),     
+    # Lake_Wilson is excluded because we don't have the custom code yet to prevent
+    # zero-crossing reserve provision
+    exclude_technologies = ('CentralFixedPV', 'Lake_Wilson'),
     base_financial_year = 2016,
     interest_rate = 0.06,
     discount_rate = 0.03,
     # used to convert nominal costs in the tables to real costs
-    inflation_rate = 0.025,  
+    inflation_rate = 0.025,
 )
 
 # battery data from 2016-12-23 PSIP report (pp. J-87 - J-88)
@@ -73,12 +75,12 @@ args = dict(
 # TODO: store this in the back-end database
 psip_nominal_battery_cost_per_kwh = [  # years 2016-2045
     660, 615, 565, 524,
-    487, 461, 440, 422, 406, 393, 382, 372, 363, 355, 
-    349, 343, 338, 333, 329, 326, 323, 320, 317, 315, 
-    313, 312, 310, 309, 307, 306, 
+    487, 461, 440, 422, 406, 393, 382, 372, 363, 355,
+    349, 343, 338, 333, 329, 326, 323, 320, 317, 315,
+    313, 312, 310, 309, 307, 306,
 ]
 # below is for 6h batteries, from 2016-12-23 PSIP report (pp. J-89 - J-90)
-# these are the same as in the 2016-04-01 PSIP app. J, 
+# these are the same as in the 2016-04-01 PSIP app. J,
 # which were used for the main model runs from 2017-05 forward
 # psip_nominal_battery_cost_per_kwh = [  # years 2016-2045530
 #     530, 493, 454, 421,
@@ -103,10 +105,10 @@ args.update(
     battery_efficiency=0.88,  # 80% for 6h in 2016-12 report, but 88% for 6h in 2016-04 report?
 )
 
-# electrolyzer data from centralized current electrolyzer scenario version 3.1 in 
-# http://www.hydrogen.energy.gov/h2a_prod_studies.html -> 
+# electrolyzer data from centralized current electrolyzer scenario version 3.1 in
+# http://www.hydrogen.energy.gov/h2a_prod_studies.html ->
 # "Current Central Hydrogen Production from PEM Electrolysis version 3.101.xlsm"
-# and 
+# and
 # "Future Central Hydrogen Production from PEM Electrolysis version 3.101.xlsm" (2025)
 # (cited by 46719.pdf)
 # note: we neglect land costs because they are small and can be recovered later
@@ -139,7 +141,7 @@ current_hydrogen_args = dict(
     hydrogen_fuel_cell_variable_cost_per_mwh=0.0, # not listed in 46719.pdf; we should estimate a wear-and-tear factor
     hydrogen_fuel_cell_mwh_per_kg=0.53*h2_mwh_per_kg,   # efficiency from 46719.pdf
     hydrogen_fuel_cell_life_years=15,   # 46719.pdf
-    
+
     hydrogen_liquifier_capital_cost_per_kg_per_hour=inflate_1995*25600,       # 25106.pdf p. 18, for 1500 kg/h plant, approx. 100 MW
     hydrogen_liquifier_fixed_cost_per_kg_hour_year=0.0,   # unknown, assumed low
     hydrogen_liquifier_variable_cost_per_kg=0.0,      # 25106.pdf p. 23 counts tank, equipment and electricity, but those are covered elsewhere
@@ -148,7 +150,7 @@ current_hydrogen_args = dict(
 
     liquid_hydrogen_tank_capital_cost_per_kg=inflate_1995*18,         # 25106.pdf p. 20, for 300000 kg vessel
     liquid_hydrogen_tank_minimum_size_kg=300000,                       # corresponds to price above; cost/kg might be 800/volume^0.3
-    liquid_hydrogen_tank_life_years=40,                       # unknown, assumed long    
+    liquid_hydrogen_tank_life_years=40,                       # unknown, assumed long
 )
 
 # future hydrogen costs; could be used for alternative scenario (see future_hydrogen below)
@@ -160,7 +162,7 @@ future_hydrogen_args.update(
     hydrogen_electrolyzer_kg_per_mwh=future_electrolyzer_kg_per_mwh,
     hydrogen_electrolyzer_life_years=40,                      # plant_life cell
 
-    # table 5, p. 13 of 46719.pdf, low-cost 
+    # table 5, p. 13 of 46719.pdf, low-cost
     # ('The value of $434/kW for the low-cost case is consistent with projected values for stationary fuel cells')
     hydrogen_fuel_cell_capital_cost_per_mw=434000*inflate_2008,
     hydrogen_fuel_cell_fixed_cost_per_mw_year=20000*inflate_2008,
@@ -173,7 +175,7 @@ args.update(current_hydrogen_args)
 
 args.update(
     pumped_hydro_headers=[
-        'ph_project_id', 'ph_load_zone', 'ph_capital_cost_per_mw', 
+        'ph_project_id', 'ph_load_zone', 'ph_capital_cost_per_mw',
         'ph_project_life', 'ph_fixed_om_percent',
         'ph_efficiency', 'ph_inflow_mw', 'ph_max_capacity_mw'],
     pumped_hydro_projects=[
@@ -191,19 +193,19 @@ alt_args = [
     dict(),
 
     # more detailed sampling
-    dict(time_sample='PSIP_2016_12_23', inputs_dir='inputs_12x24'), 
+    dict(time_sample='PSIP_2016_12_23', inputs_dir='inputs_12x24'),
 
     # 2045-only (for experiments)
     dict(time_sample='2045_15', inputs_dir='inputs_2045'),
 
     # lower-cost hydrogen
-    dict( 
-        inputs_dir='inputs_future_hydrogen', 
+    dict(
+        inputs_dir='inputs_future_hydrogen',
         **future_hydrogen_args
     ),
 
     # only 2 days, useful for testing and debugging
-    dict(inputs_dir='inputs_tiny', time_sample='tiny'),    
+    dict(inputs_dir='inputs_tiny', time_sample='tiny'),
 
     # different rates of EV adoption
     dict(inputs_dir='inputs_ev_slow', ev_scenario='Business as Usual'),
@@ -215,4 +217,3 @@ for a in alt_args:
     # clone the arguments dictionary and update it with settings from the alt_args entry, if any
     active_args = dict(args.items() + a.items())
     scenario_data.write_tables(**active_args)
-    

@@ -1,13 +1,12 @@
 INTRODUCTION
 
-This repository contains files to run SWITCH for the standard SWITCH-Hawaii scenarios.
+This repository contains files to run SWITCH for several Hawaii scenarios.
 
-To solve this model, you will need to install several things: 
+To solve this model, you will need to install several things:
 
 - Python (to run all the code)
 - a numerical solver, to do the computations needed to solve the model
-- git software, to download SWITCH code and model data from github.com
-- the data files in this repository
+- the data files in this repository (and possibly git software to download them)
 - Python code for SWITCH and Pyomo (used by SWITCH)
 
 These instructions take you through these steps and then show you how to configure and run the model. If you follow the instructions below, the only freestanding binary applications you will need to install are the Anaconda Python distribution (version 2.7) and the cplex or gurobi solver (if you want to solve models other than the "tiny" test version). All the other components will be installed as plugins to Anaconda.
@@ -36,25 +35,30 @@ If you want to solve larger models, you will need to install the cplex or gurobi
 - cplex: https://www.ibm.com/developerworks/community/blogs/jfp/entry/free_cplex_trials?lang=en
 - gurobi: http://www.gurobi.com/downloads/download-center
 
-INSTALL GIT SOFTWARE
+INSTALL SWITCH MODEL CODE AND DEPENDENCIES
 
 Open a Terminal window or Anaconda command prompt, as discussed in the previous section, then run this command and follow the prompts:
 
-conda install git
+pip install switch-model
+
+This will install Switch and other Python packages that it depends on, e.g., Pyomo.
 
 INSTALL SWITCH-HAWAII DATA AND SWITCH MODEL CODE
 
-Open a Terminal window or Anaconda command prompt. Then use the 'cd' and 'mkdir' commands to create and/or enter the  directory where you would like to store the SWITCH-Hawaii model data. Once you are in that directory, run the following commands (don't type the comments that start with '#'):
+Open a Terminal window or Anaconda command prompt as described above. Then use the 'cd' and 'mkdir' commands to create and/or enter the directory where you would like to store the SWITCH-Hawaii model data. Once you are in that directory, run the following commands (don't type the comments that start with '#'):
 
-# download the SWITCH-Hawaii model and a matching version of the SWITCH model code
-git clone --recursive https://github.com/switch-hawaii/main.git
+# install git (skip if you have it already)
+conda install git
 
-# install the SWITCH model code and required Python packages
+# download the SWITCH-Hawaii model data
+git clone https://github.com/switch-hawaii/main.git
+
+# move into the newly created "main" directory
 cd main
-cd switch
-pip install --editable .
-cd ..
-(this will leave you in the "main" directory, which is where you should be to run the model)
+
+After this, you should have a copy of the data from this repository in a directory called "main", and you will be ready to run the model.
+
+(Alternatively, you can use a web browser to download the data from https://github.com/switch-hawaii/main/archive/master.zip, and then unzip it into a directory called "main".)
 
 SETUP THE MODEL FOR YOUR FIRST RUN
 
@@ -72,7 +76,7 @@ switch solve-scenarios
 
 You can add --help to these commands to see more options.
 
-The "switch solve" command solves the default scenario, as defined by settings in options.txt, plus any additional settings you specify on the command line. Normally this will load the modules specified in modules.txt, but you can override that by specifying a different file via a --module-list flag in options.txt or on the command line. 
+The "switch solve" command solves the default scenario, as defined by settings in options.txt, plus any additional settings you specify on the command line. Normally this will load the modules specified in modules.txt, but you can override that by specifying a different file via a --module-list flag in options.txt or on the command line.
 
 The "switch solve-scenarios" command solves all scenarios listed in scenarios.txt. This uses settings specified in options.txt, plus options specified scenarios.txt, plus settings specified on the command line. Settings specified on the command line take precedence over those specified in the scenarios file, and both of those take precedence over options.txt. If your scenario definitions are stored in a different file (e.g., scenarios_ev.txt), you can specify that via the --scenario-list flag.
 
